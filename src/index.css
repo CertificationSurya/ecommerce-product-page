@@ -1,0 +1,36 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  font-family: 'Kumbh Sans', sans-serif;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  position: relative;
+}
+
+
+.img-modal{
+  position: absolute;
+  z-index: 99;
+  top: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid black;
+  opacity: 1;
+}
+
+.change-btn{
+  background-color: white; 
+  cursor: pointer;
+}
