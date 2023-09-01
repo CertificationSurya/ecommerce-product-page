@@ -7,7 +7,7 @@ type listProps = {
 
 const MobileNav: React.FC<listProps> = ({ listItems, setOpenMobNav }) => {
   return ( 
-    <nav className="mobile absolute h-full w-[15rem] py-6 px-6 z-10 bg-white border-r-2 border-stone-100">
+    <nav className="mobile absolute h-full w-[15rem] py-6 px-3 z-10 bg-white border-r-2 border-stone-100">
       <CloseIcon
         // src={closeIcon}
         onClick={() => setOpenMobNav(false)}

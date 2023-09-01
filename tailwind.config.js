@@ -7,7 +7,6 @@ export default {
   theme: {
     extend: {
       colors: {
-      
         'orange': 'hsl(26, 100%, 55%)',
         'orange-90': 'hsl(25, 100%, 94%)',
         'blue-10': 'hsl(220, 13%, 13%)',

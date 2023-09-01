@@ -6,24 +6,32 @@ import MobileNav from "./subComponents/MobileNav";
 
 const listItems = ["Collections", "Men", "Women", "About", "Contact"];
 
-const Navbar = () => {
+type NavProps = {
+  currentItem: number;
+  cartItem: {
+    currentItem: number;
+    cartItem: string;
+  };
+};
+
+const Navbar: React.FC<NavProps> = ({ currentItem, cartItem }) => {
   const [mobile, setMobile] = useState<boolean>(window.innerWidth < 768);
 
   const [openMobNav, setOpenMobNav] = useState<boolean>(false);
-  const [openCart, setOpenCart] = useState<boolean>(false);
-  const [shoppedItems, setShoppedItems] = useState<number>(0);
+  const [openCart, setOpenCart] = useState<boolean>(true);
+
+  console.log(cartItem);
 
   window.addEventListener("resize", () => {
     setMobile(window.innerWidth < 768);
   });
 
-
   return (
     <>
-    {
-      openMobNav && <MobileNav listItems={listItems} setOpenMobNav = {setOpenMobNav}/>
-    }
-      <nav className="flex justify-between px-6 h-20 border">
+      {openMobNav && (
+        <MobileNav listItems={listItems} setOpenMobNav={setOpenMobNav} />
+      )}
+      <nav className="flex justify-around h-20 border">
         <div className="flex pt-6 space-x-10">
           {mobile && (
             <MenuIcon
@@ -32,8 +40,7 @@ const Navbar = () => {
             />
           )}
 
-          <Logo  className="h-5" />
-
+          <Logo className="h-5" />
           {!mobile && (
             <ul className="flex justify-center space-x-3">
               {listItems.map((list, index) => (
@@ -55,9 +62,9 @@ const Navbar = () => {
               onClick={() => setOpenCart((prev) => !prev)}
             />
 
-            {shoppedItems > 0 && (
+            {currentItem > 0 && (
               <span className="absolute -top-2.5 -right-2 text-[10px] border rounded-2xl px-2 bg-orange text-white">
-                {shoppedItems}
+                {currentItem}
               </span>
             )}
           </div>
@@ -68,7 +75,7 @@ const Navbar = () => {
           />
         </div>
 
-        {openCart && <CartDetail />}
+        {openCart && <CartDetail currentItem={currentItem} cartItem={cartItem}/>}
       </nav>
     </>
   );
