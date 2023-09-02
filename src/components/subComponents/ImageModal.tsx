@@ -7,6 +7,7 @@ type ImageModalProps = {
   setCurrentImage: React.Dispatch<React.SetStateAction<string>>;
   setCurrentThumbnail: React.Dispatch<React.SetStateAction<string>>;
   setOpenImageModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setBlockScreen: React.Dispatch<React.SetStateAction<boolean>>;
   thumbnails: string[];
   products: string[];
   currentThumbnail: string;
@@ -20,6 +21,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
   currentThumbnail,
   products,
   thumbnails,
+  setBlockScreen,
 }) => {
   let currentIndex = products.indexOf(currentImage);
 
@@ -38,13 +40,19 @@ const ImageModal: React.FC<ImageModalProps> = ({
     setCurrentThumbnail(thumbnails[currentIndex]);
     setCurrentImage(products[currentIndex]);
   };
-  
+
   console.log(currentThumbnail);
 
   return (
     <div className="img-modal -mt-5 w-[25rem] activeElement">
       <div className="closeCard flex justify-end">
-        <CloseIcon onClick={() => setOpenImageModal(false)} className="close-icon | cursor-pointer z-20 " />
+        <CloseIcon
+          onClick={() => {
+            setOpenImageModal(false);
+            setBlockScreen(false);
+          }}
+          className="close-icon | cursor-pointer z-20 "
+        />
       </div>
 
       <div className="swipeCard | relative mt-2">
@@ -74,7 +82,6 @@ const ImageModal: React.FC<ImageModalProps> = ({
       <div className="modal-thumbnails flex gap-x-4 my-6 px-4">
         {thumbnails.map((eachThumbnail, index) => (
           <div className="thumbnail" key={index}>
-            
             <img
               src={eachThumbnail}
               alt="Thumbnail Image"
@@ -88,7 +95,6 @@ const ImageModal: React.FC<ImageModalProps> = ({
                 setCurrentImage(products[currentIndex]);
               }}
             />
-
           </div>
         ))}
       </div>

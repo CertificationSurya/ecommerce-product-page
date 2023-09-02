@@ -14,28 +14,28 @@ const CartDetail: React.FC<CartDetailProp> = ({ currentItem, cartItem }) => {
           Cart
         </div>
 
-        <div className="cart-details | relative h-[9rem] ">
+        <div className="cart-details | relative ">
           {currentItem == 0 ? (
             <h1 className="ab-center absolute font-bold text-gray-blue-45">
               Your cart is empty
             </h1>
           ) : (
-            <>
+            <div className="check-cart-wrapper  h-1 flex items-center gap-y-4 py-2 flex-col  px-3">
             <div className="check-cart | flex gap-4 py-2">
               <div className="check-details-img">
-                <img src={cartItem.cartItem} alt="saved cart" className="h-12 w-24" />
+                <img src={cartItem.cartItem} alt="saved cart" className="h-14 w-16 rounded-md" />
               </div>
 
-              <div className="check-datails-text text-gray-blue-45 font-bold">
-                Fallback Limited Edition Sneakers $125 * {cartItem.currentItem} 
+              <div className="check-datails-text text-gray-blue-45 font-bold text-sm">
+                Fall Limited Edition Sneakers $125 x {cartItem.currentItem} 
                 <span className="text-black font-bold"> ${(125 * cartItem.currentItem /1.0).toFixed(2)}  </span>
               </div>
             </div>
 
-            <button className="checkout bg-orange w-full my-6 p-2 rounded-lg font-bold text-white">
+            <button className="checkout bg-orange w-full p-2 rounded-lg font-bold text-white">
               Checkout
             </button>
-            </>
+            </div>
           )}
         </div>
       </div>

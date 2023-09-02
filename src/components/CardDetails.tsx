@@ -35,7 +35,7 @@ const CardDetails:React.FC<CardProps> = ({currentItem, setCurrentItem ,setCartIt
   };
 
   return (
-    <div className="card-text-container |m-auto flex flex-col items-center gap-8 border pr-2 max-w-[27rem]">
+    <div className="card-text-container |m-auto flex flex-col items-center gap-8 pr-2 max-w-[27rem]">
       <div className="card-texts | flex flex-col gap-y-2 pt-4">
         <p className="text-orange font-bold text-xs">SNEAKER COMPANY</p>
         <h1 className="font-bold text-3xl ">Fall Limited Edition Sneakers</h1>
@@ -60,8 +60,8 @@ const CardDetails:React.FC<CardProps> = ({currentItem, setCurrentItem ,setCartIt
           </div>
         </div>
 
-        <div className="cart-purchase | flex xs:flex-col gap-4 h-10 font-bold ">
-          <div className="item-count | w-1/3 bg-gray-blue-100">
+        <div className="cart-purchase | flex xs:flex-col gap-4 font-bold ">
+          <div className="item-count | w-1/3 bg-gray-blue-100 py-1">
             <button className="btn btn-outline-orange" onClick={() => changeListItem(false)}>
               <MinusIcon className="pt-[5px]" />
             </button>
@@ -75,8 +75,12 @@ const CardDetails:React.FC<CardProps> = ({currentItem, setCurrentItem ,setCartIt
             </button>
           </div>
 
-          <button className="add-cart | bg-orange text-white flex justify-center  items-center gap-x-2 w-2/3 rounded-lg"
+          <button className="add-cart | bg-orange text-white flex justify-center  items-center gap-x-2 w-2/3 rounded-lg mr-2"
           onClick={()=>{
+            if(tempCount === 0){
+              alert("Empty Cart! Nothing to add");
+              return;
+            }
             setCurrentItem(tempCount)
             setCartItem(
               {
@@ -84,7 +88,6 @@ const CardDetails:React.FC<CardProps> = ({currentItem, setCurrentItem ,setCartIt
                 cartItem: currentImage
               }
               )
-
               setTempCount(0)
           }}
           >

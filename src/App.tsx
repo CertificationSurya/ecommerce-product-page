@@ -19,17 +19,24 @@ const App = () => {
   });
 
   const [currentImage, setCurrentImage] = useState<string>(product1);
+  
+  const [blockScreen, setBlockScreen] = useState<boolean>(false)
 
   return (
-    <>
-      <Navbar currentItem={currentItem} cartItem={cartItem}/>
-      <div className="content | flex justify-center items-center ">
-        <div className="content-wrapper | flex xs:flex-col items-center">
-        <ImageContainer currentImage={currentImage} setCurrentImage={setCurrentImage}/>
+    <div className={`all-wrapper ${blockScreen ? "block-screen" : ""} | min-h-screen grid`}>
+
+      <Navbar currentItem={currentItem} cartItem={cartItem} setBlockScreen={setBlockScreen}/>
+      <div className="content | flex justify-center items-center">
+        
+        <div className="content-wrapper | flex xs:flex-col items-center gap-x-14">
+        
+        <ImageContainer currentImage={currentImage} setCurrentImage={setCurrentImage} setBlockScreen={setBlockScreen}/>
         <CardDetails currentItem={currentItem} setCurrentItem={setCurrentItem} setCartItem={setCartItem} currentImage={currentImage}/>
+
         </div>
+
       </div>
-    </>
+    </div>
   );
 };
 

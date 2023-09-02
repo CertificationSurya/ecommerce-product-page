@@ -3,14 +3,19 @@ import { CloseIcon } from "../../assets";
 type listProps = {
   listItems: string[];
   setOpenMobNav: React.Dispatch<React.SetStateAction<boolean>>;
+  setBlockScreen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const MobileNav: React.FC<listProps> = ({ listItems, setOpenMobNav }) => {
+const MobileNav: React.FC<listProps> = ({ listItems, setOpenMobNav, setBlockScreen }) => {
+  setBlockScreen(true);
   return ( 
-    <nav className="mobile absolute h-full w-[15rem] py-6 px-3 z-10 bg-white border-r-2 border-stone-100">
+    <nav className="mobile absolute h-full w-[15rem] py-7 px-5 z-50 bg-white border-r-2 border-stone-100">
       <CloseIcon
         // src={closeIcon}
-        onClick={() => setOpenMobNav(false)}
+        onClick={() =>{
+          setOpenMobNav(false)
+          setBlockScreen(false);
+          }}
         className="h-6 cursor-pointer"
       />
 

@@ -12,9 +12,10 @@ type NavProps = {
     currentItem: number;
     cartItem: string;
   };
+  setBlockScreen: React.Dispatch<React.SetStateAction<boolean>>
 };
 
-const Navbar: React.FC<NavProps> = ({ currentItem, cartItem }) => {
+const Navbar: React.FC<NavProps> = ({ currentItem, cartItem, setBlockScreen }) => {
   const [mobile, setMobile] = useState<boolean>(window.innerWidth < 768);
 
   const [openMobNav, setOpenMobNav] = useState<boolean>(false);
@@ -29,20 +30,20 @@ const Navbar: React.FC<NavProps> = ({ currentItem, cartItem }) => {
   return (
     <>
       {openMobNav && (
-        <MobileNav listItems={listItems} setOpenMobNav={setOpenMobNav} />
+        <MobileNav listItems={listItems} setOpenMobNav={setOpenMobNav} setBlockScreen={setBlockScreen} />
       )}
-      <nav className="flex justify-around h-20 border">
-        <div className="flex pt-6 space-x-10">
+      <nav className="nav | flex justify-around h-20 border px-5">
+        <div className="nav-logo | flex pt-6 space-x-5">
           {mobile && (
             <MenuIcon
               onClick={() => setOpenMobNav((prev) => !prev)}
-              className="h-6  cursor-pointer"
+              className="mt-1 h-6 cursor-pointer"
             />
           )}
 
-          <Logo className="h-5" />
+          <Logo />
           {!mobile && (
-            <ul className="flex justify-center space-x-3">
+            <ul className="flex space-x-3">
               {listItems.map((list, index) => (
                 <li
                   key={index}

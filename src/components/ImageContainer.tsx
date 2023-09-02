@@ -19,10 +19,11 @@ const products = [product1, product2, product3, product4];
 type ImageContainerProps = {
   currentImage: string;
   setCurrentImage: React.Dispatch<React.SetStateAction<string>>;
+  setBlockScreen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
-const ImageContainer: React.FC<ImageContainerProps>  = ({ currentImage, setCurrentImage}) => {
+const ImageContainer: React.FC<ImageContainerProps>  = ({ currentImage, setCurrentImage, setBlockScreen}) => {
 
   // const [currentImage, setCurrentImage] = useState<string>(product1);
   const [currentThumbnail, setCurrentThumbnail] = useState<string>(thumbnail1);
@@ -46,11 +47,12 @@ const ImageContainer: React.FC<ImageContainerProps>  = ({ currentImage, setCurre
     setCurrentImage(products[currentIndex]);
   };
 
+
   return (
     <div className="image-container flex flex-col items-center mx-4 max-w-md">
       <div className="current-img">
         <span
-          className="prev-btn | absolute hidden"
+          className="prev-btn | absolute hidden cursor-pointer"
           onClick={() => changeImageModal(false)}
         >
           <PreviousIcon />
@@ -58,14 +60,14 @@ const ImageContainer: React.FC<ImageContainerProps>  = ({ currentImage, setCurre
 
         <img src={currentImage} alt="Selected image" className="rounded-2xl" />
 
-        <span className="next-btn | absolute hidden"
+        <span className="next-btn | absolute hidden cursor-pointer"
           onClick={() => changeImageModal(true)}
         >
           <NextIcon />
         </span>
       </div>
 
-      {/* <div className="thumbnails flex gap-6 my-6">
+      <div className="img-thumbnails flex gap-6 my-6">
         {
           thumbnails.map((eachThumbnail, index) => (
             <div className="thumbnail" key={index}>
@@ -76,12 +78,13 @@ const ImageContainer: React.FC<ImageContainerProps>  = ({ currentImage, setCurre
               
               onClick={()=> {
                 setOpenImageModal(true)
+                setBlockScreen(true)
               }}
               />
             </div>
           ))
         }
-      </div> */}
+      </div>
 
       {openImageModal && (
         <ImageModal
@@ -92,6 +95,7 @@ const ImageContainer: React.FC<ImageContainerProps>  = ({ currentImage, setCurre
           setCurrentThumbnail={setCurrentThumbnail}
           products={products}
           currentThumbnail={currentThumbnail}
+          setBlockScreen={setBlockScreen}
         />
       )}
     </div>
