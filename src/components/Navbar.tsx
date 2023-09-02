@@ -24,7 +24,7 @@ const Navbar = () => {
   const [mobile, setMobile] = useState<boolean>(window.innerWidth < 768);
 
   const [openMobNav, setOpenMobNav] = useState<boolean>(false);
-  const [openCart, setOpenCart] = useState<boolean>(true);
+  const [openCart, setOpenCart] = useState<boolean>(false);
 
 
   window.addEventListener("resize", () => {
