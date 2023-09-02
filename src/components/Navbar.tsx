@@ -1,27 +1,31 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { avatar, CartIcon, Logo, MenuIcon } from "../assets";
 import CartDetail from "./subComponents/CartDetail";
 import MobileNav from "./subComponents/MobileNav";
 
+import CommerceContext from "../context/CommerceContext";
+
 const listItems = ["Collections", "Men", "Women", "About", "Contact"];
 
-type NavProps = {
-  currentItem: number;
-  cartItem: {
-    currentItem: number;
-    cartItem: string;
-  };
-  setBlockScreen: React.Dispatch<React.SetStateAction<boolean>>
-};
+// type NavProps = {
+//   currentItem: number;
+//   cartItem: {
+//     currentItem: number;
+//     cartItem: string;
+//   };
+//   setBlockScreen: React.Dispatch<React.SetStateAction<boolean>>
+// };
 
-const Navbar: React.FC<NavProps> = ({ currentItem, cartItem, setBlockScreen }) => {
+const Navbar = () => {
+
+  const { currentItem } = useContext(CommerceContext)!;
+
   const [mobile, setMobile] = useState<boolean>(window.innerWidth < 768);
 
   const [openMobNav, setOpenMobNav] = useState<boolean>(false);
   const [openCart, setOpenCart] = useState<boolean>(true);
 
-  console.log(cartItem);
 
   window.addEventListener("resize", () => {
     setMobile(window.innerWidth < 768);
@@ -30,7 +34,7 @@ const Navbar: React.FC<NavProps> = ({ currentItem, cartItem, setBlockScreen }) =
   return (
     <>
       {openMobNav && (
-        <MobileNav listItems={listItems} setOpenMobNav={setOpenMobNav} setBlockScreen={setBlockScreen} />
+        <MobileNav listItems={listItems} setOpenMobNav={setOpenMobNav}/>
       )}
       <nav className="nav | flex justify-around h-20 border px-5">
         <div className="nav-logo | flex pt-6 space-x-5">
@@ -76,7 +80,7 @@ const Navbar: React.FC<NavProps> = ({ currentItem, cartItem, setBlockScreen }) =
           />
         </div>
 
-        {openCart && <CartDetail currentItem={currentItem} cartItem={cartItem}/>}
+        {openCart && <CartDetail currentItem={currentItem} />}
       </nav>
     </>
   );

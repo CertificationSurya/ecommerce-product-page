@@ -1,21 +1,23 @@
 import { CartIcon, MinusIcon, PlusIcon } from "../assets";
 
-import React, { useState } from "react";
+import { useContext, useState } from "react";
+import CommerceContext from "../context/CommerceContext";
 
 
-type cartItem = {
-  currentItem: number;
-  cartItem: string;
-}
+// type cartItem = {
+//   currentItem: number;
+//   cartItem: string;
+// }
 
-type CardProps = {
-  currentItem: number;
-  setCurrentItem: React.Dispatch<React.SetStateAction<number>>;
-  setCartItem : React.Dispatch<React.SetStateAction<cartItem>>;
-  currentImage: string;
-}
+// type CardProps = {
+//   setCurrentItem: React.Dispatch<React.SetStateAction<number>>;
+//   setCartItem : React.Dispatch<React.SetStateAction<cartItem>>;
+//   currentImage: string;
+// }
 
-const CardDetails:React.FC<CardProps> = ({currentItem, setCurrentItem ,setCartItem, currentImage}) => {
+const CardDetails = ( ) => {
+
+  const { setCurrentItem ,setCartItem, currentImage } = useContext(CommerceContext)
 
   const [tempCount, setTempCount] = useState<number>(0)
 

@@ -1,12 +1,14 @@
+import { useContext } from "react";
+import CommerceContext from "../../context/CommerceContext";
+
 type CartDetailProp = {
   currentItem: number;
-  cartItem: {
-    currentItem: number;
-    cartItem: string;
-  };
 };
 
-const CartDetail: React.FC<CartDetailProp> = ({ currentItem, cartItem }) => {
+const CartDetail: React.FC<CartDetailProp> = ({ currentItem }) => {
+
+  const { cartItem } = useContext(CommerceContext)!
+
   return (
     <div className="cart-detail | bg-white absolute right-[2rem] top-[4rem] z-10 rounded-lg bg-white">
       <div className="cart-wrapper | bg-white">

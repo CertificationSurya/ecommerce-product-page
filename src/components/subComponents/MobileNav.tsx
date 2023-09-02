@@ -1,12 +1,16 @@
+import { useContext } from "react";
 import { CloseIcon } from "../../assets";
+import CommerceContext from "../../context/CommerceContext";
 
 type listProps = {
   listItems: string[];
   setOpenMobNav: React.Dispatch<React.SetStateAction<boolean>>;
-  setBlockScreen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const MobileNav: React.FC<listProps> = ({ listItems, setOpenMobNav, setBlockScreen }) => {
+const MobileNav: React.FC<listProps> = ({ listItems, setOpenMobNav }) => {
+
+  const { setBlockScreen } = useContext(CommerceContext)!
+
   setBlockScreen(true);
   return ( 
     <nav className="mobile absolute h-full w-[15rem] py-7 px-5 z-50 bg-white border-r-2 border-stone-100">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   NextIcon,
   PreviousIcon,
@@ -12,18 +12,20 @@ import {
   thumbnail4,
 } from "../assets";
 import ImageModal from "./subComponents/ImageModal";
+import CommerceContext from "../context/CommerceContext";
 
 const thumbnails = [thumbnail1, thumbnail2, thumbnail3, thumbnail4];
 const products = [product1, product2, product3, product4];
 
-type ImageContainerProps = {
-  currentImage: string;
-  setCurrentImage: React.Dispatch<React.SetStateAction<string>>;
-  setBlockScreen: React.Dispatch<React.SetStateAction<boolean>>;
-}
+// type ImageContainerProps = {
+//   currentImage: string;
+//   setCurrentImage: React.Dispatch<React.SetStateAction<string>>;
+//   setBlockScreen: React.Dispatch<React.SetStateAction<boolean>>;
+// }
 
 
-const ImageContainer: React.FC<ImageContainerProps>  = ({ currentImage, setCurrentImage, setBlockScreen}) => {
+const ImageContainer  = () => {
+const { currentImage, setCurrentImage, setBlockScreen} = useContext(CommerceContext)!
 
   // const [currentImage, setCurrentImage] = useState<string>(product1);
   const [currentThumbnail, setCurrentThumbnail] = useState<string>(thumbnail1);
