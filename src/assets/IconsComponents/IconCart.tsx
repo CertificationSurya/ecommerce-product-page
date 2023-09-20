@@ -1,4 +1,3 @@
-import * as React from "react";
 import type { SVGProps } from "react";
 const SvgIconCart = (props: SVGProps<SVGSVGElement>) => (
   <svg width="22" height="20" xmlns="http://www.w3.org/2000/svg" {...props}>

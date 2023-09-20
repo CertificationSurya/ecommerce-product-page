@@ -15,6 +15,6 @@ type CommerceContextData = {
     setBlockScreen: React.Dispatch<React.SetStateAction<boolean>>;
   };
 
-const CommerceContext = createContext<CommerceContextData | undefined>(undefined);
+const CommerceContext = createContext<CommerceContextData>({} as CommerceContextData);
 
 export default CommerceContext;
