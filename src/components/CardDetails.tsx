@@ -1,39 +1,27 @@
 import { CartIcon, MinusIcon, PlusIcon } from "../assets";
+import { useState } from "react";
 
-import { useContext, useState } from "react";
-import CommerceContext from "../context/CommerceContext";
+// stores
+import { useAppSelector, useAppDispatch } from "../app/hooks";
+import { commerceAction } from "../features/commerce/commerceSlice";
+const { setCurrentItem, setCartItem } = commerceAction;
 
 
-// type cartItem = {
-//   currentItem: number;
-//   cartItem: string;
-// }
+const CardDetails = () => {
+  // getting data from store
+  const { currentImage } = useAppSelector((state) => state.commerce);
+  const dispatch = useAppDispatch();
 
-// type CardProps = {
-//   setCurrentItem: React.Dispatch<React.SetStateAction<number>>;
-//   setCartItem : React.Dispatch<React.SetStateAction<cartItem>>;
-//   currentImage: string;
-// }
-
-const CardDetails = ( ) => {
-
-  const { setCurrentItem ,setCartItem, currentImage } = useContext(CommerceContext)
-
-  const [tempCount, setTempCount] = useState<number>(0)
+  const [tempCount, setTempCount] = useState<number>(0);
 
   const changeListItem = (changePositive: boolean) => {
-   
-    if(changePositive){
-      setTempCount(tempCount + 1)
+    if (changePositive) {
+      setTempCount(tempCount + 1);
+    } else if (!changePositive && tempCount > 0) {
+      setTempCount(tempCount - 1);
+    } else {
+      setTempCount(0);
     }
-    else if (!changePositive && tempCount > 0){
-      setTempCount(tempCount - 1)
-    }
-
-    else{
-      setTempCount(0)
-    }
-
   };
 
   return (
@@ -50,7 +38,6 @@ const CardDetails = ( ) => {
       </div>
 
       <div className="purchase | w-full flex flex-col justify-between gap-4">
-
         <div className="prices | flex flex-col font-bold pr-1">
           <div className="actual-price | space-x-4 flex items-center">
             <span className="text-2xl">$125.00 </span>
@@ -64,36 +51,41 @@ const CardDetails = ( ) => {
 
         <div className="cart-purchase | flex xs:flex-col gap-4 font-bold ">
           <div className="item-count | w-1/3 bg-gray-blue-100 py-1">
-            <button className="btn btn-outline-orange" onClick={() => changeListItem(false)}>
+            <button
+              className="btn btn-outline-orange"
+              onClick={() => changeListItem(false)}
+            >
               <MinusIcon className="pt-[5px]" />
             </button>
 
             <span className="text-2xl">{tempCount}</span>
 
-            <button className="btn btn-outline-orange"
-            onClick={() => changeListItem(true)}
+            <button
+              className="btn btn-outline-orange"
+              onClick={() => changeListItem(true)}
             >
               <PlusIcon />
             </button>
           </div>
 
-          <button className="add-cart | bg-orange text-white flex justify-center  items-center gap-x-2 w-2/3 rounded-lg mr-2"
-          onClick={()=>{
-            if(tempCount === 0){
-              alert("Empty Cart! Nothing to add");
-              return;
-            }
-            setCurrentItem(tempCount)
-            setCartItem(
-              {
-                currentItem: tempCount,
-                cartItem: currentImage
+          <button
+            className="add-cart | bg-orange text-white flex justify-center  items-center gap-x-2 w-2/3 rounded-lg mr-2"
+            onClick={() => {
+              if (tempCount === 0) {
+                alert("Empty Cart! Nothing to add");
+                return;
               }
-              )
-              setTempCount(0)
-          }}
+              dispatch(setCurrentItem(tempCount));
+              dispatch(
+                setCartItem({
+                  currentItem: tempCount,
+                  cartItem: currentImage,
+                })
+              );
+              setTempCount(0);
+            }}
           >
-            <CartIcon className="fill-white"/>
+            <CartIcon className="fill-white" />
             <p>Add to cart</p>
           </button>
         </div>

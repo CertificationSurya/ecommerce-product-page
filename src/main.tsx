@@ -3,13 +3,14 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 
-// commerce state
-import CommerceState from "./context/CommerceState.tsx";
+// store
+import { Provider } from "react-redux";
+import store from "./app/store.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <CommerceState>
-      <App />
-    </CommerceState>
+    <Provider store={store}>
+        <App />
+    </Provider>
   </React.StrictMode>
 );

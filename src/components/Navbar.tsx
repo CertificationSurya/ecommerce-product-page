@@ -1,31 +1,20 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 import { avatar, CartIcon, Logo, MenuIcon } from "../assets";
 import CartDetail from "./subComponents/CartDetail";
 import MobileNav from "./subComponents/MobileNav";
 
-import CommerceContext from "../context/CommerceContext";
+import { useAppSelector } from "../app/hooks";
 
 const listItems = ["Collections", "Men", "Women", "About", "Contact"];
 
-// type NavProps = {
-//   currentItem: number;
-//   cartItem: {
-//     currentItem: number;
-//     cartItem: string;
-//   };
-//   setBlockScreen: React.Dispatch<React.SetStateAction<boolean>>
-// };
-
 const Navbar = () => {
-
-  const { currentItem } = useContext(CommerceContext)!;
+// store
+  const { currentItem } = useAppSelector(state => state.commerce);
 
   const [mobile, setMobile] = useState<boolean>(window.innerWidth < 768);
-
   const [openMobNav, setOpenMobNav] = useState<boolean>(false);
   const [openCart, setOpenCart] = useState<boolean>(false);
-
 
   window.addEventListener("resize", () => {
     setMobile(window.innerWidth < 768);

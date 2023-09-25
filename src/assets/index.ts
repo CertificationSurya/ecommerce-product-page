@@ -1,12 +1,3 @@
-// import cartIcon from "./icon-cart.svg";
-// import closeIcon from "./icon-close.svg";
-// import deleteIcon from "./icon-delete.svg";
-// import menuIcon from "./icon-menu.svg";
-// import minusIcon from "./icon-minus.svg";
-// import nextIcon from "./icon-next.svg";
-// import plusIcon from "./icon-plus.svg";
-// import previousIcon from "./icon-previous.svg";
-// // logo
 import CartIcon from './IconsComponents/IconCart'
 import CloseIcon from './IconsComponents/IconClose'
 import DeleteIcon from './IconsComponents/IconDelete'

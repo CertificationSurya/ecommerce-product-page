@@ -1,13 +1,12 @@
-import { useContext } from "react";
-import CommerceContext from "../../context/CommerceContext";
+import { useAppSelector } from "../../app/hooks";
 
 type CartDetailProp = {
   currentItem: number;
 };
 
 const CartDetail: React.FC<CartDetailProp> = ({ currentItem }) => {
-
-  const { cartItem } = useContext(CommerceContext)!
+  // store
+  const { cartItem } = useAppSelector(state => state.commerce)
 
   return (
     <div className="cart-detail | bg-white absolute right-[2rem] top-[4rem] z-10 rounded-lg bg-white">

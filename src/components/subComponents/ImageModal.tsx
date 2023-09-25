@@ -1,13 +1,14 @@
+import { useAppDispatch } from "../../app/hooks";
 import { CloseIcon, NextIcon, PreviousIcon } from "../../assets";
-// import { product1, product2, product3, product4} from "../../assets"
-// const products = [product1, product2, product3, product4]
+
+import { commerceAction } from "../../features/commerce/commerceSlice";
+const { setCurrentImage, setBlockScreen } = commerceAction
+
 
 type ImageModalProps = {
   currentImage: string;
-  setCurrentImage: React.Dispatch<React.SetStateAction<string>>;
   setCurrentThumbnail: React.Dispatch<React.SetStateAction<string>>;
   setOpenImageModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setBlockScreen: React.Dispatch<React.SetStateAction<boolean>>;
   thumbnails: string[];
   products: string[];
   currentThumbnail: string;
@@ -15,18 +16,17 @@ type ImageModalProps = {
 
 const ImageModal: React.FC<ImageModalProps> = ({
   currentImage,
-  setCurrentImage,
   setOpenImageModal,
   setCurrentThumbnail,
   currentThumbnail,
   products,
   thumbnails,
-  setBlockScreen,
 }) => {
+  // store
+  const dispatch = useAppDispatch()
   let currentIndex = products.indexOf(currentImage);
 
   const changeImageModal = (changePositive: boolean) => {
-    console.log(currentIndex);
 
     if (changePositive && currentIndex === products.length - 1) {
       currentIndex = 0;
@@ -38,18 +38,17 @@ const ImageModal: React.FC<ImageModalProps> = ({
       currentIndex -= 1;
     }
     setCurrentThumbnail(thumbnails[currentIndex]);
-    setCurrentImage(products[currentIndex]);
+    dispatch(setCurrentImage(products[currentIndex]));
   };
 
-  console.log(currentThumbnail);
 
   return (
-    <div className="img-modal -mt-5 w-[25rem] activeElement">
+    <div className="img-modal -mt-5 w-[25rem] | activeElement">
       <div className="closeCard flex justify-end">
         <CloseIcon
           onClick={() => {
             setOpenImageModal(false);
-            setBlockScreen(false);
+            dispatch(setBlockScreen(false));
           }}
           className="close-icon | cursor-pointer z-20 "
         />
@@ -92,7 +91,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
                 setOpenImageModal(true);
                 setCurrentThumbnail(eachThumbnail);
                 const currentIndex = thumbnails.indexOf(eachThumbnail);
-                setCurrentImage(products[currentIndex]);
+                dispatch(setCurrentImage(products[currentIndex]));
               }}
             />
           </div>

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import {
   NextIcon,
   PreviousIcon,
@@ -12,20 +12,20 @@ import {
   thumbnail4,
 } from "../assets";
 import ImageModal from "./subComponents/ImageModal";
-import CommerceContext from "../context/CommerceContext";
+// import CommerceContext from "../context/CommerceContext";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+
+import { commerceAction } from "../features/commerce/commerceSlice";
+const { setCurrentImage, setBlockScreen } = commerceAction;
 
 const thumbnails = [thumbnail1, thumbnail2, thumbnail3, thumbnail4];
 const products = [product1, product2, product3, product4];
 
-// type ImageContainerProps = {
-//   currentImage: string;
-//   setCurrentImage: React.Dispatch<React.SetStateAction<string>>;
-//   setBlockScreen: React.Dispatch<React.SetStateAction<boolean>>;
-// }
+const ImageContainer = () => {
+  const { currentImage } = useAppSelector((state) => state.commerce);
+  const dispatch = useAppDispatch();
 
-
-const ImageContainer  = () => {
-const { currentImage, setCurrentImage, setBlockScreen} = useContext(CommerceContext)!
+  // const { setCurrentImage, setBlockScreen } = useContext(CommerceContext)!;
 
   // const [currentImage, setCurrentImage] = useState<string>(product1);
   const [currentThumbnail, setCurrentThumbnail] = useState<string>(thumbnail1);
@@ -34,7 +34,6 @@ const { currentImage, setCurrentImage, setBlockScreen} = useContext(CommerceCont
   let currentIndex = products.indexOf(currentImage);
 
   const changeImageModal = (changePositive: boolean) => {
-    console.log(currentIndex);
 
     if (changePositive && currentIndex === products.length - 1) {
       currentIndex = 0;
@@ -46,9 +45,8 @@ const { currentImage, setCurrentImage, setBlockScreen} = useContext(CommerceCont
       currentIndex -= 1;
     }
     setCurrentThumbnail(thumbnails[currentIndex]);
-    setCurrentImage(products[currentIndex]);
+    dispatch(setCurrentImage(products[currentIndex]));
   };
-
 
   return (
     <div className="image-container flex flex-col items-center mx-4 max-w-md">
@@ -62,7 +60,8 @@ const { currentImage, setCurrentImage, setBlockScreen} = useContext(CommerceCont
 
         <img src={currentImage} alt="Selected image" className="rounded-2xl" />
 
-        <span className="next-btn | absolute hidden cursor-pointer"
+        <span
+          className="next-btn | absolute hidden cursor-pointer"
           onClick={() => changeImageModal(true)}
         >
           <NextIcon />
@@ -70,34 +69,31 @@ const { currentImage, setCurrentImage, setBlockScreen} = useContext(CommerceCont
       </div>
 
       <div className="img-thumbnails flex gap-6 my-6">
-        {
-          thumbnails.map((eachThumbnail, index) => (
-            <div className="thumbnail" key={index}>
-
-              <img src={eachThumbnail} 
-              alt="Thumbnail Image" 
-              className={`eachThumbnail | ${eachThumbnail == currentThumbnail ? "opacity-30" : "" }  hover:opacity-60 cursor-pointer rounded-md`}
-              
-              onClick={()=> {
-                setOpenImageModal(true)
-                setBlockScreen(true)
+        {thumbnails.map((eachThumbnail, index) => (
+          <div className="thumbnail" key={index}>
+            <img
+              src={eachThumbnail}
+              alt="Thumbnail Image"
+              className={`eachThumbnail | ${
+                eachThumbnail == currentThumbnail ? "opacity-30" : ""
+              }  hover:opacity-60 cursor-pointer rounded-md`}
+              onClick={() => {
+                setOpenImageModal(true);
+                dispatch(setBlockScreen(true));
               }}
-              />
-            </div>
-          ))
-        }
+            />
+          </div>
+        ))}
       </div>
 
       {openImageModal && (
         <ImageModal
           currentImage={currentImage}
           thumbnails={thumbnails}
-          setCurrentImage={setCurrentImage}
           setOpenImageModal={setOpenImageModal}
           setCurrentThumbnail={setCurrentThumbnail}
           products={products}
           currentThumbnail={currentThumbnail}
-          setBlockScreen={setBlockScreen}
         />
       )}
     </div>
